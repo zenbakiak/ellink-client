@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
+
+import linksService from "../../services/LinksService";
+
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-
-import linksService from '../../services/LinksService';
-import { makeStyles } from '@material-ui/core/styles';
-
-import LinkItem from '../../components/LinkItem';
-
-import Grid from '@material-ui/core/Grid';
+import { makeStyles } from "@material-ui/core/styles";
+import LinkItem from "../../components/LinkItem";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,11 +14,10 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: 'center',
+    textAlign: "center",
     color: theme.palette.text.secondary,
   },
 }));
-
 
 function TopLinks(props) {
   const classes = useStyles();
@@ -32,12 +30,11 @@ function TopLinks(props) {
   const getLinks = async () => {
     try {
       const response = await linksService.topRanked();
-      setLinks(response.data)
+      setLinks(response.data);
     } catch (error) {
       console.log(error);
     }
   };
-
 
   return (
     <>
@@ -54,17 +51,13 @@ function TopLinks(props) {
       <br />
       <div className={classes.root}>
         <Grid container spacing={1}>
-        {links.map((link, i) => (
-        <Grid item xs={12} key={i}>
-        <LinkItem link={link} />
-        </Grid>
-      ))}
-
+          {links.map((link, i) => (
+            <Grid item xs={12} key={i}>
+              <LinkItem link={link} />
+            </Grid>
+          ))}
         </Grid>
       </div>
-
-
-
     </>
   );
 }
